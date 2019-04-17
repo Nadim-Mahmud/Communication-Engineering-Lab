@@ -3,19 +3,23 @@ clear
 
 bits = [0,1,1,0,1,0,1,0,1,1,1,1];
 
-for i = 1:length(bits)
-    if(bits(i)==1) 
-        amplitude(i) = -2;
-    else 
-        amplitude(i) = 2;
-    end
-    
-end
+% for i = 1:length(bits)
+%     if(bits(i)==1) 
+%         amplitude(i) = -2;
+%     else 
+%         amplitude(i) = 2;
+%     end
+%     
+% end
+
+prompt = 'What is voltage ?\n';
+
+voltage = input(prompt);
 
 
 
 bitrate = 1;
-Time=12  
+Time=bitrate*length(bits)  
 
 sampling_frequency = 150;
 
@@ -24,7 +28,12 @@ time = 0:bitrate/sampling_frequency:Time;
 x = 1;
 
 for i = 1:length(time)
-    y_value(i)= amplitude(x);
+    %y_value(i)= amplitude(x);
+    y_value(i) = voltage;
+    if(bits(x)==1)
+        y_value(i) = -voltage;
+    end
+    
     if time(i)>=x
         x= x+1;
     end
@@ -32,7 +41,7 @@ end
      
 
 plot(time,y_value);
-axis([0 Time -4 6]);
+axis([0 Time -voltage-2 voltage+2]);
 
 
 % demodulation
