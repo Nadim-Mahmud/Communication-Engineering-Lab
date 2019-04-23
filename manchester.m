@@ -10,6 +10,8 @@ sign = 1;
 tmp=voltage;
 in = 1;
 
+voltage = sign*voltage;
+
 for i = 1:length(bits)
     if(bits(i)==0)
         y_level(in) = voltage;
