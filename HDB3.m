@@ -2,7 +2,7 @@ clear;
 clc;
 close;
 
-bits = [0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,1,0];
+bits = [0,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0];
 
 bit_rate=1;
 voltage=5;
@@ -39,9 +39,6 @@ for i = 1:length(bits)
     end
 end
 
-y_level
-
-
 voltage=tmp;
 Time=length(bits)/bit_rate; 
 sampling_frequency = 1000;
@@ -74,7 +71,6 @@ for j=1:length(time)
       else
         ans_bits(in)=1;
         if tmp==dm&&in>3
-            disp("ssss")
             ans_bits(in) = 0;
             ans_bits(in-3) = 0;
         end
