@@ -21,7 +21,8 @@ end
 voltage=tmp;
 Time=length(bits)/bit_rate; 
 frequency = 1000;
-time = 0:1/frequency:Time;
+period = 1/(frequency*bit_rate);
+time = 0:period:Time;
 x = 1;
 
 for i = 1:length(time)
@@ -38,17 +39,16 @@ axis([0 Time -voltage-2 voltage+2]);
 
 % demodulation
 
-i=1;
 in=1;
 for j=1:length(time)
   tmp = y_value(j)/voltage;
-  if time(j)*bit_rate>=i 
+  if time(j)*bit_rate>=in
       if tmp==0
         ans_bits(in)=0;
       else 
         ans_bits(in)=1;
       end 
-      i=i+1;
+      in=in+1;
   end
  end
 
