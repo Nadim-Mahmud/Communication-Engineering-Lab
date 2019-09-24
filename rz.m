@@ -40,6 +40,7 @@ end
      
 
 plot(time,y_value);
+grid on;
 axis([0 Time -voltage-2 voltage+2]);
 
 

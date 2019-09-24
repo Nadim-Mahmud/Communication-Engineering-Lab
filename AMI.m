@@ -1,8 +1,8 @@
 clear;
 
-bits = [1,0,0,1,1,1,0,1,0,1,1,1,1];
+bits = [1,0,0,1,1,1,0,1,0,1,1,1];
 
-bit_rate=2;
+bit_rate=4;
 voltage=5;
 tmp=voltage;
 sign = -1;
@@ -21,7 +21,7 @@ end
 voltage=tmp;
 Time=length(bits)/bit_rate; 
 frequency = 1000;
-time = 0:.01:Time;
+time = 0:1/frequency:Time;
 x = 1;
 
 for i = 1:length(time)
@@ -40,18 +40,14 @@ axis([0 Time -voltage-2 voltage+2]);
 
 i=1;
 in=1;
-tmp=1*sign;
 for j=1:length(time)
-  dm(i) = y_value(j)/voltage;
+  tmp = y_value(j)/voltage;
   if time(j)*bit_rate>=i 
-      if dm(i)==0
+      if tmp==0
         ans_bits(in)=0;
       else 
         ans_bits(in)=1;
       end 
-      
-     % disp(tmp);
-      tmp=dm(i);
       i=i+1;
       in= in+1;
   end

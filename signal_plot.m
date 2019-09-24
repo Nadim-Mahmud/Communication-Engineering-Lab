@@ -19,4 +19,5 @@ y1 = a1 * sin(2*pi*f1*t)
 y2 = a2 * sin(2*pi*f2*t)
 
 plot(t,y+y1,'r',t,y1,'g',t,y2,'b')
+grid on;
 
