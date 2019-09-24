@@ -4,27 +4,30 @@ bits = [0,1,1,0,1,0,1,0,1,1,1,1];
 
 bit_rate=1;
 voltage=4;
-sign = -1;
+sign = 1;
 
-tmp = voltage;
-voltage = voltage*sign;
+tmp=voltage;
 in = 1;
+
+voltage = sign*voltage;
 
 for i = 1:length(bits)
     if(bits(i)==0)
-        y_level(in) = voltage;
-        y_level(in+1) = -voltage;
-    else 
         y_level(in) = -voltage;
         y_level(in+1) = voltage;
+    else 
+        y_level(in) = voltage;
+        y_level(in+1) = -voltage;
+        voltage = -voltage;
     end
     in = in + 2;
 end
 
-voltage = tmp;
+voltage=tmp;
 
 bit_rate = bit_rate;
-Time=length(bits)/bit_rate; 
+Time=length(bits)/bit_rate;
+
 frequency = 1000;
 dt = 1/frequency;
 time = 0:dt:Time;
@@ -54,10 +57,11 @@ for j=1:length(time)
   dm = y_value(j)/voltage;
   if time(j)*bit_rate*2>=in
       if mod(in,2)==1
-          if dm ==tmp
+          if dm ~=tmp
             ans_bits(st)=0;
           else 
             ans_bits(st)=1;
+            tmp =  -tmp; %middle a trasition ghotlo
           end 
           st = st + 1;
       end
