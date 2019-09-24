@@ -2,7 +2,7 @@ clear;
 
 bits = [1,0,0,1,1,1,0,1,0,1,1,1];
 
-bit_rate=4;
+bit_rate=1;
 voltage=5;
 tmp=voltage;
 sign = -1;
@@ -49,7 +49,6 @@ for j=1:length(time)
         ans_bits(in)=1;
       end 
       i=i+1;
-      in= in+1;
   end
  end
 
