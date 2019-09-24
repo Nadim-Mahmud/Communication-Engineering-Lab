@@ -1,6 +1,6 @@
 clear;
 
-bits = [0,1,1,0,1,0,1,0,1,1,1,1];
+bits = [0,1,1,0,1,0,1,0,1,0,0,1];
 
 bit_rate=1;
 voltage=4;
@@ -22,17 +22,16 @@ for i = 1:length(bits)
 end
 
 voltage=tmp;
-bit_rate = bit_rate*2;
-frequency = 1000;
-Time=length(bits)*2/bit_rate; 
-dt = 1/frequency;
-time = 0:dt:Time;
+Time=length(bits)/bit_rate; 
+sampling_frequency = 1000;
+sampling_period = 1/sampling_frequency;
+time = 0:sampling_period:Time;
 
 x = 1;
 
 for i = 1:length(time)
     y_value(i)= y_level(x);
-    if time(i)*bit_rate>=x
+    if time(i)*bit_rate*2>=x
         x= x+1;
     end
 end
@@ -49,11 +48,10 @@ i=1;
 in=1;
 st=1;
 tmp=1*sign;
+
 for j=1:length(time)
   dm = y_value(j)/voltage;
-  
-  if time(j)*bit_rate>=i
- 
+  if time(j)*bit_rate*2>=in
       if mod(in,2)==1
           if dm ==tmp
             ans_bits(st)=0;
@@ -62,8 +60,6 @@ for j=1:length(time)
           end 
           st = st + 1;
       end
-     
-      i=i+1;
       in= in+1;
   end
  end
