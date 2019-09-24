@@ -14,3 +14,8 @@
 
 1. HDB3
 2. B8ZS
+
+## Analog to Analog Conversion :
+
+1. AM
+2. FM
