@@ -1,40 +1,32 @@
-clear
+clear;
+clc;
+close;
+
+bits = [0,1,1,0,1,0,1,0,0,0,1,1];
+
+bitrate = 2;
+voltage = 5;
+
+for i = 1:length(bits)
+    if(bits(i)==1) 
+        amplitude(i) = voltage;
+    else 
+        amplitude(i) = -voltage;
+    end     
+end
 
 
-bits = [0,1,1,0,1,0,1,0,1,1,1,1];
+Time=length(bits)/bitrate;  
+sampling_frequency = 1000;
+sampling_period = 1/sampling_frequency;
 
-% for i = 1:length(bits)
-%     if(bits(i)==1) 
-%         amplitude(i) = -2;
-%     else 
-%         amplitude(i) = 2;
-%     end
-%     
-% end
-
-prompt = 'What is voltage ?\n';
-
-voltage = input(prompt);
-
-
-
-bitrate = 1;
-Time=bitrate*length(bits)  
-
-sampling_frequency = 150;
-
-time = 0:bitrate/sampling_frequency:Time;
+time = 0:sampling_period:Time;
 
 x = 1;
 
 for i = 1:length(time)
-    %y_value(i)= amplitude(x);
-    y_value(i) = voltage;
-    if(bits(x)==1)
-        y_value(i) = -voltage;
-    end
-    
-    if time(i)>=x
+    y_value(i)= amplitude(x);
+    if time(i)*bitrate>=x
         x= x+1;
     end
 end
@@ -42,19 +34,18 @@ end
 
 plot(time,y_value);
 axis([0 Time -voltage-2 voltage+2]);
-
+grid on;
 
 % demodulation
-x = 1;
 
+x = 1;
 for i = 1:length(time)
-    if time(i)>x
-        x = x + 1;
+    if time(i)*bitrate>=x
         ans_bits(x) = 1;
-        if(y_value(i)>0)
+        if(y_value(i)<0)
             ans_bits(x) = 0;
         end
-        %ans_bits(x) = y_value(i);
+        x = x + 1;
     end
 end
 
